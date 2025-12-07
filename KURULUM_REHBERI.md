@@ -167,3 +167,37 @@ Sistemde **Admin (Yönetici)** dışında **Personel** ve **Site Sakini** roller
 
 ⚠️ **Not:** `role` alanını doğru yazmak (küçük harflerle: `admin`, `staff`, `resident`) sistemin doğru arayüzü göstermesi için kritiktir.
 
+
+---
+
+## 6. BÖLÜM: Bu Projeyi Başka Bir Hesaba Kopyalama (Fork & Deploy)
+
+Bu projeyi beğenip kendi GitHub hesabınızda yayınlamak istiyorsanız, basit bir "Fork" işlemi yeterli değildir. Çünkü veritabanı şifreleri ve URL ayarları size özel olmalıdır.
+
+Kendi versiyonunuzu yayınlamak için şu sırayı takip edin:
+
+### 6.1. Projeyi Kopyalayın (Fork)
+1.  GitHub sayfasının sağ üst köşesindeki **"Fork"** butonuna tıklayın.
+2.  Kendi hesabınızı seçin ve projeyi kopyalayın.
+
+### 6.2. Kendi Firebase Projenizi Oluşturun
+Proje orijinal haliyle çalışmaz çünkü benim veritabanıma erişim şifrelerine (Secrets) sahip değilsiniz.
+*   **1. BÖLÜM**'deki adımları uygulayarak **kendinize ait yeni bir Firebase projesi** oluşturun ve kendi API anahtarlarınızı alın.
+
+### 6.3. Secret'ları Ekleyin
+*   **3.1. ADIM**'daki gibi, GitHub repo ayarlarınıza gidip **kendi Firebase bilgilerinizi** `Secrets` olarak ekleyin.
+
+### 6.4. URL Ayarını Yapın (Kritik Adım ⚠️)
+Eğer GitHub kullanıcı adınız veya repo isminiz değiştiyse, site adresi de değişecektir. Bunu projeye tanıtmalısınız:
+
+1.  `vite.config.js` dosyasını açın.
+2.  `base:` satırını bulun ve kendi repo isminize göre güncelleyin:
+    ```javascript
+    // Örnek: Kullanıcı adınız 'ahmet', repo adınız 'site-yonetim' ise:
+    base: '/site-yonetim/',
+    ```
+3.  Eğer repo adınız orijinaliyle aynı (`site-yonetim-sistemi`) ise `.env` veya config değişikliğine gerek yoktur.
+
+### 6.5. Gönderin
+Yaptığınız bu küçük değişiklikleri commit edip push'ladığınızda, GitHub Actions otomatik olarak çalışacak ve siteniz **sizin hesabınız üzerinden** yayınlanacaktır.
+
