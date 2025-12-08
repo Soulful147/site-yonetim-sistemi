@@ -82,4 +82,4 @@ Detaylı kurulum adımları, Firebase ayarları ve ilk kullanıcının oluşturu
 4.  Dalınızı push'layın ve bir **Pull Request** oluşturun.
 
 ---
-*Geliştirici: [YUSAKRU](https://github.com/yusakru)*
+*Geliştirici: [soulful147](https://github.com/soulful147)*
