@@ -24,8 +24,8 @@ export const createTicket = async (ticketData, userId, userProfile) => {
         const ticket = {
             ...ticketData,
             user_id: userId,
-            block: userProfile?.block || null,
-            flat_no: userProfile?.flat_no || null,
+            block: userProfile?.block || '',
+            flat_no: userProfile?.flat_no || '',
             status: 'new',
             assigned_to: null,
             created_at: Timestamp.now(),
