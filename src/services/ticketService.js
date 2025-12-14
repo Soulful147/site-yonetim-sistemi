@@ -21,6 +21,8 @@ import { generateId } from '../utils/helpers';
  */
 export const createTicket = async (ticketData, userId, userProfile) => {
     try {
+        console.log('Creating ticket with:', { ticketData, userId, userProfile });
+        
         // Clean ticket data - remove undefined values
         const cleanTicketData = {
             title: ticketData.title || '',
@@ -29,11 +31,23 @@ export const createTicket = async (ticketData, userId, userProfile) => {
             priority: ticketData.priority || 'medium',
         };
 
+        // Safely extract block and flat_no
+        let block = '';
+        let flat_no = '';
+        
+        if (userProfile && userProfile.block !== undefined && userProfile.block !== null) {
+            block = String(userProfile.block);
+        }
+        
+        if (userProfile && userProfile.flat_no !== undefined && userProfile.flat_no !== null) {
+            flat_no = String(userProfile.flat_no);
+        }
+
         const ticket = {
             ...cleanTicketData,
             user_id: userId || '',
-            block: (userProfile?.block || '').toString(),
-            flat_no: (userProfile?.flat_no || '').toString(),
+            block: block,
+            flat_no: flat_no,
             status: 'new',
             assigned_to: '',
             created_at: Timestamp.now(),
@@ -41,6 +55,8 @@ export const createTicket = async (ticketData, userId, userProfile) => {
             rating: 0,
             resolution_time: 0,
         };
+
+        console.log('Ticket object before Firebase:', ticket);
 
         const docRef = await addDoc(collection(db, 'tickets'), ticket);
 
