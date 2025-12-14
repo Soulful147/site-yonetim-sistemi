@@ -98,3 +98,17 @@ export const getUserTickets = async (userId) => {
         return [];
     }
 };
+/**
+ * Upload ticket photo
+ */
+export const uploadTicketPhoto = async (file, ticketId) => {
+    try {
+        const storageRef = ref(storage, `tickets/${ticketId}/${file.name}`);
+        await uploadBytes(storageRef, file);
+        const photoUrl = await getDownloadURL(storageRef);
+        return photoUrl;
+    } catch (error) {
+        console.error('Upload ticket photo error:', error);
+        throw error;
+    }
+};
