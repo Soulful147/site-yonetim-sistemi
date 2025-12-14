@@ -55,3 +55,46 @@ export const createTicket = async (ticketData, userId, userProfile) => {
         throw error;
     }
 };
+
+/**
+ * Get all tickets
+ */
+export const getAllTickets = async () => {
+    try {
+        const q = query(
+            collection(db, 'tickets'),
+            orderBy('created_at', 'desc')
+        );
+        const querySnapshot = await getDocs(q);
+        const tickets = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+        }));
+        return tickets;
+    } catch (error) {
+        console.error('Get all tickets error:', error);
+        return [];
+    }
+};
+
+/**
+ * Get user tickets
+ */
+export const getUserTickets = async (userId) => {
+    try {
+        const q = query(
+            collection(db, 'tickets'),
+            where('user_id', '==', userId),
+            orderBy('created_at', 'desc')
+        );
+        const querySnapshot = await getDocs(q);
+        const tickets = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+        }));
+        return tickets;
+    } catch (error) {
+        console.error('Get user tickets error:', error);
+        return [];
+    }
+};
