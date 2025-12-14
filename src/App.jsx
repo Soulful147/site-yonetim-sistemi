@@ -96,10 +96,42 @@ function App() {
                                     </ProtectedRoute>
                                 }
                             />
+                            <Route
+                                path="/admin/tickets"
+                                element={
+                                    <ProtectedRoute user={user} allowedRoles={['admin']}>
+                                        <AdminDashboard />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/admin/analytics"
+                                element={
+                                    <ProtectedRoute user={user} allowedRoles={['admin']}>
+                                        <AdminDashboard />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/admin/users"
+                                element={
+                                    <ProtectedRoute user={user} allowedRoles={['admin']}>
+                                        <AdminDashboard />
+                                    </ProtectedRoute>
+                                }
+                            />
 
                             {/* Staff Routes */}
                             <Route
                                 path="/staff/dashboard"
+                                element={
+                                    <ProtectedRoute user={user} allowedRoles={['staff']}>
+                                        <StaffDashboard user={user} />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/staff/tasks"
                                 element={
                                     <ProtectedRoute user={user} allowedRoles={['staff']}>
                                         <StaffDashboard user={user} />
