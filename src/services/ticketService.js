@@ -21,17 +21,25 @@ import { generateId } from '../utils/helpers';
  */
 export const createTicket = async (ticketData, userId, userProfile) => {
     try {
+        // Clean ticket data - remove undefined values
+        const cleanTicketData = {
+            title: ticketData.title || '',
+            category: ticketData.category || '',
+            description: ticketData.description || '',
+            priority: ticketData.priority || 'medium',
+        };
+
         const ticket = {
-            ...ticketData,
-            user_id: userId,
-            block: userProfile?.block || '',
-            flat_no: userProfile?.flat_no || '',
+            ...cleanTicketData,
+            user_id: userId || '',
+            block: (userProfile?.block || '').toString(),
+            flat_no: (userProfile?.flat_no || '').toString(),
             status: 'new',
-            assigned_to: null,
+            assigned_to: '',
             created_at: Timestamp.now(),
             updated_at: Timestamp.now(),
-            rating: null,
-            resolution_time: null,
+            rating: 0,
+            resolution_time: 0,
         };
 
         const docRef = await addDoc(collection(db, 'tickets'), ticket);
