@@ -112,3 +112,25 @@ export const uploadTicketPhoto = async (file, ticketId) => {
         throw error;
     }
 };
+
+/**
+ * Get staff assigned tickets
+ */
+export const getStaffTickets = async (staffId) => {
+    try {
+        const q = query(
+            collection(db, 'tickets'),
+            where('assigned_to', '==', staffId),
+            orderBy('created_at', 'desc')
+        );
+        const querySnapshot = await getDocs(q);
+        const tickets = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+        }));
+        return tickets;
+    } catch (error) {
+        console.error('Get staff tickets error:', error);
+        return [];
+    }
+};
