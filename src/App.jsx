@@ -17,6 +17,7 @@ import MyTickets from './pages/resident/MyTickets';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/Dashboard';
+import AllTickets from './pages/admin/AllTickets';
 
 // Staff Pages
 import StaffDashboard from './pages/staff/Dashboard';
@@ -100,7 +101,7 @@ function App() {
                                 path="/admin/tickets"
                                 element={
                                     <ProtectedRoute user={user} allowedRoles={['admin']}>
-                                        <AdminDashboard />
+                                        <AllTickets />
                                     </ProtectedRoute>
                                 }
                             />
