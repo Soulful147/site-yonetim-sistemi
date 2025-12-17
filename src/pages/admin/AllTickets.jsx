@@ -5,10 +5,12 @@ import Card from '../../components/common/Card';
 import Loader from '../../components/common/Loader';
 
 const AllTickets = () => {
+    console.log('🎯 AllTickets component loaded!');
     const [tickets, setTickets] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        console.log('🚀 AllTickets useEffect running');
         loadTickets();
     }, []);
 

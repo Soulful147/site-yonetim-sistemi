@@ -18,6 +18,8 @@ import MyTickets from './pages/resident/MyTickets';
 // Admin Pages
 import AdminDashboard from './pages/admin/Dashboard';
 import AllTickets from './pages/admin/AllTickets';
+import Analytics from './pages/admin/Analytics';
+import Users from './pages/admin/Users';
 
 // Staff Pages
 import StaffDashboard from './pages/staff/Dashboard';
@@ -109,7 +111,7 @@ function App() {
                                 path="/admin/analytics"
                                 element={
                                     <ProtectedRoute user={user} allowedRoles={['admin']}>
-                                        <AdminDashboard />
+                                        <Analytics />
                                     </ProtectedRoute>
                                 }
                             />
@@ -117,7 +119,7 @@ function App() {
                                 path="/admin/users"
                                 element={
                                     <ProtectedRoute user={user} allowedRoles={['admin']}>
-                                        <AdminDashboard />
+                                        <Users />
                                     </ProtectedRoute>
                                 }
                             />

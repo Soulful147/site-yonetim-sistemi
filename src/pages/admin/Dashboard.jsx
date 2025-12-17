@@ -10,6 +10,7 @@ import { groupBy, calculateAverage } from '../../utils/helpers';
 import { getCategoryById, BLOCKS } from '../../utils/constants';
 
 const AdminDashboard = () => {
+    console.log('📊 AdminDashboard component loaded!');
     const [tickets, setTickets] = useState([]);
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
