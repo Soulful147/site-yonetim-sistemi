@@ -76,14 +76,14 @@ const TicketDetailModal = ({ ticket, onClose, onUpdate }) => {
             zIndex: 1000,
         }}>
             <div style={{
-                background: 'var(--color-surface)',
+                background: '#1a1a2e',
                 borderRadius: 'var(--radius-lg)',
                 padding: 'var(--spacing-xl)',
                 maxWidth: '600px',
                 width: '90%',
                 maxHeight: '90vh',
                 overflow: 'auto',
-                border: '1px solid var(--color-border)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
                 boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
             }}>
                 {/* Header */}
