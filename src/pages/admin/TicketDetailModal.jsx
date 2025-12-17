@@ -68,7 +68,8 @@ const TicketDetailModal = ({ ticket, onClose, onUpdate }) => {
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'rgba(0, 0, 0, 0.7)',
+            background: 'rgba(0, 0, 0, 0.85)',
+            backdropFilter: 'blur(8px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -83,6 +84,7 @@ const TicketDetailModal = ({ ticket, onClose, onUpdate }) => {
                 maxHeight: '90vh',
                 overflow: 'auto',
                 border: '1px solid var(--color-border)',
+                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
             }}>
                 {/* Header */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 'var(--spacing-lg)' }}>
