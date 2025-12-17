@@ -49,7 +49,7 @@ const AllTickets = () => {
     const getStatusLabel = (status) => {
         const labels = {
             'new': 'Yeni',
-            'assigned': 'Atandı',
+            'assigned': 'Onaylandı',
             'in_progress': 'İşlemde',
             'resolved': 'Çözüldü',
             'closed': 'Kapalı',

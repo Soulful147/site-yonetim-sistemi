@@ -137,7 +137,7 @@ const TicketDetailModal = ({ ticket, onClose, onUpdate }) => {
                             'secondary'
                         }>
                             {ticket.status === 'new' ? 'Yeni' : 
-                             ticket.status === 'assigned' ? 'Atandı' : 
+                             ticket.status === 'assigned' ? 'Onaylandı' : 
                              ticket.status === 'resolved' ? 'Çözüldü' :
                              'Kapatıldı'}
                         </Badge>
