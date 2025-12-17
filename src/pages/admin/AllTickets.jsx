@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { FileText, Clock, CheckCircle, AlertCircle, Search, Eye } from 'lucide-react';
 import { getAllTickets } from '../../services/ticketService';
-import { getCategoryById } from '../../utils/constants';
 import Card from '../../components/common/Card';
+import Badge from '../../components/common/Badge';
 import Loader from '../../components/common/Loader';
+import Input from '../../components/common/Input';
+import Button from '../../components/common/Button';
+import TicketDetailModal from './TicketDetailModal';
+import { getCategoryById, getPriorityById } from '../../utils/constants';
 
 const AllTickets = () => {
     console.log('🎯 AllTickets component loaded!');
     const [tickets, setTickets] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedTicket, setSelectedTicket] = useState(null);
 
     useEffect(() => {
         console.log('🚀 AllTickets useEffect running');
@@ -74,37 +80,49 @@ const AllTickets = () => {
                                 <th style={{ padding: 'var(--spacing-md)', textAlign: 'left', fontWeight: 600 }}>Durum</th>
                                 <th style={{ padding: 'var(--spacing-md)', textAlign: 'left', fontWeight: 600 }}>Blok</th>
                                 <th style={{ padding: 'var(--spacing-md)', textAlign: 'left', fontWeight: 600 }}>Daire</th>
+                                <th style={{ padding: 'var(--spacing-md)', textAlign: 'center', fontWeight: 600 }}>İşlemler</th>
                             </tr>
                         </thead>
                         <tbody>
                             {tickets.map((ticket) => (
                                 <tr key={ticket.id} style={{
                                     borderBottom: '1px solid var(--glass-border)',
-                                    '&:hover': { background: 'hsla(262, 83%, 58%, 0.05)' }
                                 }}>
                                     <td style={{ padding: 'var(--spacing-md)' }}>{ticket.title}</td>
                                     <td style={{ padding: 'var(--spacing-md)' }}>
                                         {getCategoryById(ticket.category)?.label || ticket.category}
                                     </td>
                                     <td style={{ padding: 'var(--spacing-md)' }}>
-                                        <span style={{
-                                            display: 'inline-block',
-                                            background: getStatusColor(ticket.status),
-                                            color: 'white',
-                                            padding: '4px 12px',
-                                            borderRadius: 'var(--radius-md)',
-                                            fontSize: 'var(--font-size-sm)',
-                                        }}>
+                                        <Badge variant={ticket.status === 'new' ? 'warning' : ticket.status === 'assigned' ? 'info' : 'success'}>
                                             {getStatusLabel(ticket.status)}
-                                        </span>
+                                        </Badge>
                                     </td>
                                     <td style={{ padding: 'var(--spacing-md)' }}>{ticket.block || '-'}</td>
                                     <td style={{ padding: 'var(--spacing-md)' }}>{ticket.flat_no || '-'}</td>
+                                    <td style={{ padding: 'var(--spacing-md)', textAlign: 'center' }}>
+                                        <Button
+                                            size="sm"
+                                            variant="secondary"
+                                            onClick={() => setSelectedTicket(ticket)}
+                                            icon={<Eye size={16} />}
+                                        >
+                                            Detay
+                                        </Button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
+            )}
+
+            {/* Detail Modal */}
+            {selectedTicket && (
+                <TicketDetailModal
+                    ticket={selectedTicket}
+                    onClose={() => setSelectedTicket(null)}
+                    onUpdate={loadTickets}
+                />
             )}
         </div>
     );

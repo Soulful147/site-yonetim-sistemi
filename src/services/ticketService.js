@@ -134,3 +134,24 @@ export const getStaffTickets = async (staffId) => {
         return [];
     }
 };
+
+/**
+ * Update ticket
+ */
+export const updateTicket = async (ticketId, updates) => {
+    try {
+        const ticketRef = doc(db, 'tickets', ticketId);
+        const updateData = {
+            ...updates,
+            updated_at: Timestamp.now(),
+        };
+        
+        await updateDoc(ticketRef, updateData);
+        
+        return { id: ticketId, ...updateData };
+    } catch (error) {
+        console.error('Update ticket error:', error);
+        throw error;
+    }
+};
+
