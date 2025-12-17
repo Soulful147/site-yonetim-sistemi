@@ -59,6 +59,30 @@ const TicketDetailModal = ({ ticket, onClose, onUpdate }) => {
         }
     };
 
+    const handleResolve = async () => {
+        if (!adminNotes.trim()) {
+            setError('Lütfen bir not ekleyin');
+            return;
+        }
+        
+        setLoading(true);
+        setError('');
+        
+        try {
+            await updateTicket(ticket.id, {
+                status: 'resolved',
+                admin_notes: adminNotes,
+            });
+            
+            onUpdate?.();
+            onClose();
+        } catch (err) {
+            setError('Talep çözüldü olarak işaretlenirken hata oluştu: ' + err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     if (!ticket) return null;
 
     return (
@@ -106,8 +130,16 @@ const TicketDetailModal = ({ ticket, onClose, onUpdate }) => {
                 {/* Status & Details */}
                 <div style={{ marginBottom: 'var(--spacing-lg)' }}>
                     <div style={{ display: 'flex', gap: 'var(--spacing-md)', marginBottom: 'var(--spacing-md)', flexWrap: 'wrap' }}>
-                        <Badge variant={ticket.status === 'new' ? 'warning' : 'info'}>
-                            {ticket.status === 'new' ? 'Yeni' : ticket.status === 'assigned' ? 'Atandı' : 'Kapatıldı'}
+                        <Badge variant={
+                            ticket.status === 'new' ? 'warning' : 
+                            ticket.status === 'assigned' ? 'info' : 
+                            ticket.status === 'resolved' ? 'success' : 
+                            'secondary'
+                        }>
+                            {ticket.status === 'new' ? 'Yeni' : 
+                             ticket.status === 'assigned' ? 'Atandı' : 
+                             ticket.status === 'resolved' ? 'Çözüldü' :
+                             'Kapatıldı'}
                         </Badge>
                         <Badge variant="secondary">{getCategoryById(ticket.category)?.label}</Badge>
                         <Badge variant="secondary">{getPriorityById(ticket.priority)?.label}</Badge>
@@ -201,6 +233,26 @@ const TicketDetailModal = ({ ticket, onClose, onUpdate }) => {
                             icon={<CheckCircle size={18} />}
                         >
                             Onayla
+                        </Button>
+                    </div>
+                )}
+
+                {ticket.status === 'assigned' && (
+                    <div style={{ display: 'flex', gap: 'var(--spacing-md)', justifyContent: 'flex-end' }}>
+                        <Button
+                            variant="secondary"
+                            onClick={onClose}
+                            disabled={loading}
+                        >
+                            İptal
+                        </Button>
+                        <Button
+                            variant="success"
+                            onClick={handleResolve}
+                            loading={loading}
+                            icon={<CheckCircle size={18} />}
+                        >
+                            Çözüldü Olarak İşaretle
                         </Button>
                     </div>
                 )}

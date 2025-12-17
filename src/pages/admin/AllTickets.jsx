@@ -93,7 +93,12 @@ const AllTickets = () => {
                                         {getCategoryById(ticket.category)?.label || ticket.category}
                                     </td>
                                     <td style={{ padding: 'var(--spacing-md)' }}>
-                                        <Badge variant={ticket.status === 'new' ? 'warning' : ticket.status === 'assigned' ? 'info' : 'success'}>
+                                        <Badge variant={
+                                            ticket.status === 'new' ? 'warning' : 
+                                            ticket.status === 'assigned' ? 'info' : 
+                                            ticket.status === 'resolved' ? 'success' : 
+                                            'secondary'
+                                        }>
                                             {getStatusLabel(ticket.status)}
                                         </Badge>
                                     </td>
